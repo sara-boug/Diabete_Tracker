@@ -9,7 +9,10 @@ const Data = new mongoose.Schema({
                 time: { type: Date }
             }]
     }],
-    date: new Date.now
+    date:{
+        type:Date, 
+        default: Date.now
+    }
 });
 const diabeteData = mongoose.model("diabete_Data", Data);
 

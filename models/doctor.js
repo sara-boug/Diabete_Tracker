@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const doctorSchema = new mongoose.Schema({
+const doctorSchema = mongoose.Schema({
     name: String,
     familyName: String,
     clinic: String,
@@ -12,8 +12,13 @@ const doctorSchema = new mongoose.Schema({
                 throw new Error("Please insert A valid Email");
             }
         }
-    }
+    }, 
+    patients:[
+        {
+            type:mongoose.Schema.Types.ObjectId , ref: "patient"  // reference to the patient model 
+        }
+    ]
 
 });
-const doctor = mongoose.Schema("doctor" , doctorSchema); 
+const doctor = mongoose.model("doctor" , doctorSchema); 
 module.exports = doctor; 

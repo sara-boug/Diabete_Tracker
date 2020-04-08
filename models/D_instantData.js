@@ -9,8 +9,14 @@ const  data= new mongoose.Schema({
                 time: { type: Date }
             }]
     }],
-    date: new Date.now
+    date: {
+        type:Date, 
+        default:Date.now
+    },
+    patient: { 
+        type:mongoose.Schema.Types.ObjectId , ref:"patient"
+    }
 });
 
-const  D_instant_Data= mongoose.Schema("diabete_Instant_Data", data);
+const  D_instant_Data= mongoose.model("diabete_Instant_Data", data);
 module.exports=D_instant_Data; 

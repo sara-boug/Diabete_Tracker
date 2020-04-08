@@ -13,6 +13,7 @@ const patientSchema = mongoose.Schema({
         required: true,
 
     },
+    country:String, 
     email: {
         type: String,
         required: true,
@@ -32,10 +33,14 @@ const patientSchema = mongoose.Schema({
                 throw new Error("Name , family Name can not be included");
             }
         }
+    }, 
+    data:{ 
+        type:mongoose.Schema.Types.ObjectId  , ref:"diabete_Data"
+
     }
+
 });
 
 
 const patient = mongoose.model("patient", patientSchema);
-
 module.exports =patient;
