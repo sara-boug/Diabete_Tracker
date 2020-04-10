@@ -3,27 +3,7 @@ const Patient = require("../../models/patient");
 const jwt = require("jsonwebtoken");
 const route = express.Router();
 const jwtKey = "jsonWebToken";
-
-const auth = async (req, res, next) => {
-
-    try {
-        var reqToken = req.headers.authorization;
-        reqToken = reqToken.replace("Bearer", "").trim();
-        const token = await jwt.verify(reqToken, jwtKey);
-        const patient = await Patient.findOne({ _id: token, 'tokens.token': reqToken });
-        if (patient !== null) {
-            req.patient = patient;
-            req.token = reqToken;
-        } else {
-            res.send({error:"login or Sign Up please"})
-        }
-        next();
-    } catch (e) {
-        throw new Error(e);
-    }
-}
-
-
+const auth = require("../tokenAuth"); 
 
 
 route.post("/patient/signUp", async (req, res) => {
@@ -55,10 +35,37 @@ route.get("/patient/logout", auth, async (req, res) => {
         });
         req.patient.tokens = array;
         await req.patient.save();
-        res.send({notification:"Disconnected"});
+        res.send({ notification: "Disconnected" });
     } catch (e) {
-        res.status(500)
+        res.status(500).send(); 
     }
 });
 
+route.post("/patient/update", auth, async (req, res) => {
+    try {
+        const bodyKeys = Object.keys(req.body);
+        const reqKeys = Object.keys(req.patient);
+        bodyKeys.forEach(bkey => {
+            req.patient[bkey] = req.body[bkey];
+        });
+        await req.patient.save();
+        res.status(200).send();
+    } catch (e) {
+        res.status(500).send();
+
+    }
+});
+route.get("/patient/all", auth , async(req, res)=> { 
+     try {  
+         const array = await Patient.find({}); 
+          const filteredArray= array.filter(element => { 
+              return   element.email!=req.email ; 
+          })
+      
+        res.status(400).send(filteredArray);         
+     }catch(e) { 
+         throw new Error(e)
+       
+     }
+})
 module.exports = route; 
