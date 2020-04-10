@@ -12,12 +12,11 @@ const doctorSchema = mongoose.Schema({
                 throw new Error("Please insert A valid Email");
             }
         }
-    }, 
-    patients:[
-        {
-            type:mongoose.Schema.Types.ObjectId , ref: "patient"  // reference to the patient model 
-        }
-    ]
+    },
+    patient:
+    {
+        type: mongoose.Schema.Types.ObjectId, ref: "patient"  // reference to the patient model 
+    }
 
 });
 const doctor = mongoose.model("doctor" , doctorSchema); 
