@@ -20,7 +20,6 @@ route.post("/patient/signUp", async (req, res) => {
 route.get("/patient/login", async (req, res) => {
     try {
         const patient = await Patient.findPatient(req.body.email, req.body.password);
-        console.log(patient);
         res.send(patient);
 
     } catch (e) {

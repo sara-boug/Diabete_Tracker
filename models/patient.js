@@ -39,10 +39,7 @@ const patientSchema = mongoose.Schema({
             }
         }
     },
-    data: {
-        type: mongoose.Schema.Types.ObjectId, ref: "diabete_Data"
-
-    },
+ 
     tokens:
         [
             {
