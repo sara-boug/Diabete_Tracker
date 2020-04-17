@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 
 const  data= new mongoose.Schema({
-    GlucosLevel: [{
+    GlucosLevel: {
         date: Date,
-        ClucosLevel: [
+        glucosLevel: [
             {
                 level: { type: Number, default: null },
                 time: { type: Date }
             }]
-    }],
+    },
     date: {
         type:Date, 
         default:Date.now

@@ -40,4 +40,13 @@ route.post('/ddata/add', auth, async (req, res) => {
         throw new Error(e)
     }
 });
+route.delete('/ddata/delete', auth, async(req, res) => { 
+      try{ 
+        const data= await DataD.findOneAndDelete({patient:req.patient.id});
+        res.status(200).send();    
+      }catch(e) { 
+        res.status(500).send();    
+        throw new Error(e); 
+      }
+}); 
 module.exports = route; 
