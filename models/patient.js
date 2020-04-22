@@ -70,8 +70,7 @@ patientSchema.methods.generateToken = async function () {
     try {
         var token = { token: await jwt.sign({ _id: this._id }, jwtKey) };
         var array = [...this.tokens, token];
-        console.log(array)
-        this.tokens = array;
+         this.tokens = array;
         await this.save();
         return token;
     } catch (e) {
@@ -86,7 +85,6 @@ patientSchema.statics.findPatient = async function (email, password) {
         });
         if (patient != null) {
             const compare = await bcrypt.compare(password, patient.password);
-            console.log(compare);
             if (compare == true) {
                 return patient.generateToken(); 
             } else {
