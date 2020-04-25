@@ -6,7 +6,7 @@ const auth = require("../tokenAuth");
 
 route.post("/doctor", auth, async (req, res) => {
      try {
-          const find = await Doctor.find({ patient: req.patient._id });
+          const find = await Doctor.findOne({ patient: req.patient._id });
           if (find == null) {
                const newDoc = new Doctor({
                     ...req.body,
@@ -30,7 +30,7 @@ route.post("/doctor/update", auth, async (req, res) => {
                patient_doc[bkey] = req.body[bkey];
           });
           await patient_doc.save();
-          res.status(200).send({ success: "updated" })
+          res.status(200).send(patient_doc)
      } catch (e) {
           res.status(500).send();
           throw new Error(e);
@@ -39,6 +39,22 @@ route.post("/doctor/update", auth, async (req, res) => {
 
 });
 
+route.get("/doctor", auth, async (req, res) => {
+     try {
+          var patient_doc = await Doctor.findOne({ patient: req.patient._id });
+          if (patient_doc == null) {
+               res.status(404).send();
+          } else {
+
+               res.status(200).send(patient_doc);
+          }
+     } catch (e) {
+          res.status(500).send({ error: "deleting fail" });
+          throw new Error(e);
+
+
+     }
+})
 route.delete("/doctor/delete", auth, async (req, res) => {
      try {
           var patient_doc = await Doctor.findOne({ patient: req.patient._id });

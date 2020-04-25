@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const Patient = require("../models/patient");
-
 const jwtKey = "jsonWebToken";
 const auth = async (req, res, next) => {
 
@@ -14,11 +13,11 @@ const auth = async (req, res, next) => {
                 req.patient = patient;
                 req.token = reqToken;
             } else {
-                res.status(500).send({ error: "login or Sign Up please" })
+                res.status(500).send({ error: "patient undefined" })
             }
             next();
         } else {
-            res.status(500).send({ error: "login or Sign Up please" });
+            res.status(500).send({ error: "reqToken undefined" });
 
         }
     } catch (e) {
