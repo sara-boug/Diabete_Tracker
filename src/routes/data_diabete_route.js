@@ -5,6 +5,7 @@ const auth = require('../tokenAuth');
 
 route.get('/ddata', auth, async(req, res)=> { 
     try{ 
+
        const data = await DataD.findOne({ patient: req.patient.id });
        if(data!=null) { 
           res.status(200).send(data.GlucosLevel.glucosLevel);
@@ -18,9 +19,9 @@ route.get('/ddata', auth, async(req, res)=> {
     }
 
 })
-route.post('/ddata/add', auth, async (req, res) => {
+route.post('/ddata/add', auth, async (req, res) => { // updating as well as adding data 
     try {
-        const data = await DataD.findOne({ patient: req.patient.id });
+         const data = await DataD.findOne({ patient: req.patient.id });
         if (data == null) {
             var insertD = new DataD({
                "GlucosLevel.glucosLevel": req.body,

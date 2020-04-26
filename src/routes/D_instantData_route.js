@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 route.post("/instdd/add", auth, async (req, res) => {
     try {
-        console.log(req.body);
+        console.log(req);
         var data = new instant_d_data({
             "GlucosLevel.glucosLevel": req.body,
             patient:req.patient._id

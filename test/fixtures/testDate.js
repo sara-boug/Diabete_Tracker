@@ -37,11 +37,18 @@ var doctor1 = {
     patient: mongoose.Types.ObjectId("5e90b67ffe67323538d876e8") // concerns the patient1
 }
 
+var Ddata =  
+    [
+    {
+        "level":1.5, 
+        "time":12.10
+    }
+    ]
 
 module.exports = {
     patient,
     patient1,
     token,
     doctor,
-    doctor1
-}
+    doctor1, 
+    Ddata}
